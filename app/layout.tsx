@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +17,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        
+        <body className={inter.className}>
+        <nav className="w-full">
+          <div className="py-6 mx-auto max-w-3xl flex flex-row justify-between font-mono font-bold">
+          <Link href='/'>
+            <div className="hover:text-emerald-500 transition-colors duration-500">
+              <p>home</p>
+            </div>
+            </Link>
+            <Link href='/sign-in'>
+            <div className="hover:text-emerald-500 transition-colors duration-500">
+              <p>sign in</p>
+            </div>
+            </Link>
+            <Link href='/sign-up'>
+              <div className="hover:text-emerald-500 transition-colors duration-500">
+                <p>sign up</p>
+              </div>
+            </Link>
+          </div>
+        </nav>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }
